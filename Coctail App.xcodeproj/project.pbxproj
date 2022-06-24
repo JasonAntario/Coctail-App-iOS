@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		74CB35C22865D358003FFD59 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB35C12865D358003FFD59 /* Dynamic.swift */; };
+		74CB35C92865D5EE003FFD59 /* CoctailsListDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB35C82865D5EE003FFD59 /* CoctailsListDao.swift */; };
+		74CB35CD2865DAD9003FFD59 /* ApiSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB35CC2865DAD9003FFD59 /* ApiSession.swift */; };
+		74CB35D02865DB43003FFD59 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB35CF2865DB43003FFD59 /* Constants.swift */; };
+		74CB35D22865E428003FFD59 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB35D12865E428003FFD59 /* ViewModel.swift */; };
 		74EBACF42858C7F2002F6F13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EBACF32858C7F2002F6F13 /* AppDelegate.swift */; };
 		74EBACF62858C7F2002F6F13 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EBACF52858C7F2002F6F13 /* SceneDelegate.swift */; };
 		74EBACF82858C7F2002F6F13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EBACF72858C7F2002F6F13 /* ViewController.swift */; };
@@ -16,6 +21,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		74CB35C12865D358003FFD59 /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
+		74CB35C82865D5EE003FFD59 /* CoctailsListDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoctailsListDao.swift; sourceTree = "<group>"; };
+		74CB35CC2865DAD9003FFD59 /* ApiSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSession.swift; sourceTree = "<group>"; };
+		74CB35CF2865DB43003FFD59 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		74CB35D12865E428003FFD59 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		74EBACF02858C7F2002F6F13 /* Coctail App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coctail App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74EBACF32858C7F2002F6F13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74EBACF52858C7F2002F6F13 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,6 +47,74 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		74CB35BB2865CE03003FFD59 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				74CB35CB2865DAAC003FFD59 /* Daos */,
+				74CB35CC2865DAD9003FFD59 /* ApiSession.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		74CB35BC2865CE19003FFD59 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				74CB35BF2865CE89003FFD59 /* Storyboards */,
+				74CB35BE2865CE2F003FFD59 /* ViewControllers */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		74CB35BD2865CE24003FFD59 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				74CB35C02865D341003FFD59 /* Bindings */,
+				74CB35D12865E428003FFD59 /* ViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		74CB35BE2865CE2F003FFD59 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				74EBACF72858C7F2002F6F13 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		74CB35BF2865CE89003FFD59 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				74EBACF92858C7F2002F6F13 /* Main.storyboard */,
+				74EBACFE2858C7F4002F6F13 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		74CB35C02865D341003FFD59 /* Bindings */ = {
+			isa = PBXGroup;
+			children = (
+				74CB35C12865D358003FFD59 /* Dynamic.swift */,
+			);
+			path = Bindings;
+			sourceTree = "<group>";
+		};
+		74CB35CB2865DAAC003FFD59 /* Daos */ = {
+			isa = PBXGroup;
+			children = (
+				74CB35C82865D5EE003FFD59 /* CoctailsListDao.swift */,
+			);
+			path = Daos;
+			sourceTree = "<group>";
+		};
+		74CB35CE2865DB35003FFD59 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				74CB35CF2865DB43003FFD59 /* Constants.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		74EBACE72858C7F2002F6F13 = {
 			isa = PBXGroup;
 			children = (
@@ -56,12 +134,13 @@
 		74EBACF22858C7F2002F6F13 /* Coctail App */ = {
 			isa = PBXGroup;
 			children = (
+				74CB35CE2865DB35003FFD59 /* Utils */,
+				74CB35BD2865CE24003FFD59 /* ViewModels */,
+				74CB35BC2865CE19003FFD59 /* Views */,
+				74CB35BB2865CE03003FFD59 /* Models */,
 				74EBACF32858C7F2002F6F13 /* AppDelegate.swift */,
 				74EBACF52858C7F2002F6F13 /* SceneDelegate.swift */,
-				74EBACF72858C7F2002F6F13 /* ViewController.swift */,
-				74EBACF92858C7F2002F6F13 /* Main.storyboard */,
 				74EBACFC2858C7F4002F6F13 /* Assets.xcassets */,
-				74EBACFE2858C7F4002F6F13 /* LaunchScreen.storyboard */,
 				74EBAD012858C7F4002F6F13 /* Info.plist */,
 			);
 			path = "Coctail App";
@@ -139,8 +218,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				74EBACF82858C7F2002F6F13 /* ViewController.swift in Sources */,
+				74CB35D02865DB43003FFD59 /* Constants.swift in Sources */,
+				74CB35C22865D358003FFD59 /* Dynamic.swift in Sources */,
 				74EBACF42858C7F2002F6F13 /* AppDelegate.swift in Sources */,
+				74CB35CD2865DAD9003FFD59 /* ApiSession.swift in Sources */,
 				74EBACF62858C7F2002F6F13 /* SceneDelegate.swift in Sources */,
+				74CB35D22865E428003FFD59 /* ViewModel.swift in Sources */,
+				74CB35C92865D5EE003FFD59 /* CoctailsListDao.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,8 +376,10 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -319,8 +405,10 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

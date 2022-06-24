@@ -13,4 +13,9 @@ struct K {
         static let urlGetCoctailsByFirstLetter = "https://www.thecocktaildb.com/api/json/v1/1/search.php?f="
         static let urlGetCoctailByFullName = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
     }
+    
+    struct ID {
+        static let coctailCellID = "CoctailCellID"
+        static let coctailCellNib = "CoctailCell"
+    }
 }

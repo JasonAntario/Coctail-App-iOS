@@ -17,9 +17,17 @@ class ViewModel {
         apiSession.apiSessionDelegate = self
     }
     
+    func searchCoctails(_ coctailName: String){
+        let trimCoctailName = coctailName.trimmingLeadingAndTrailingSpaces()
+        if trimCoctailName.count < 1 {
+            return
+        } else if trimCoctailName.count == 1 {
+            getCoctailsByFirstLetter(trimCoctailName)
+        } else {
+            getCoctailsByFullName(trimCoctailName)
+        }
+    }
     
-    
-
     func getCoctailsByFirstLetter(_ letter: String){
         apiSession.getCoctailsByFirstLetter(letter)
     }
@@ -33,7 +41,9 @@ class ViewModel {
 extension ViewModel: ApiSessionDelegate {
     func didCoctailsListRecieved(coctailsList: CoctailsListDao) {
         if let safeDrinks = coctailsList.drinks {
-            self.coctailsListBind.value = safeDrinks
+            DispatchQueue.main.async {
+                self.coctailsListBind.value = safeDrinks
+            }
         } else {
             print("No drinks founded")
             self.coctailsListBind.value = [CoctailsListDao.DrinkDao]()

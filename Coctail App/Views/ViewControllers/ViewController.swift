@@ -7,27 +7,34 @@
 
 import UIKit
 
-class MainViewController: UITableViewController {
-
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var mainTableView: UITableView!
     let viewModel = ViewModel()
     
     var coctailsList = [CoctailsListDao.DrinkDao]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mainTableView.dataSource = self
+        mainTableView.keyboardDismissMode = .onDrag
         registerTableViewCell()
         
-        viewModel.getCoctailsByFirstLetter("a")
-        
         viewModel.coctailsListBind.bind { coctailsList in
-            DispatchQueue.main.async {
-                self.coctailsList = coctailsList
-                self.tableView.reloadData()
-            }
+            self.coctailsList = coctailsList
+            self.mainTableView.reloadData()
         }
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    private func registerTableViewCell(){
+        let textFieldCell = UINib(nibName: K.ID.coctailCellNib,bundle: nil)
+        mainTableView.register(textFieldCell, forCellReuseIdentifier: K.ID.coctailCellID)
+    }
+}
+
+extension ViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.ID.coctailCellID, for: indexPath) as! CoctailCell
         let item = coctailsList[indexPath.row]
         cell.coctailName.text = item.strDrink
@@ -38,13 +45,19 @@ class MainViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         coctailsList.count
     }
     
-    private func registerTableViewCell(){
-        let textFieldCell = UINib(nibName: K.ID.coctailCellNib,bundle: nil)
-        tableView.register(textFieldCell, forCellReuseIdentifier: K.ID.coctailCellID)
+}
+
+extension ViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.delegate = self
+        let coctailName = searchBar.text
+        if let saveCoctailName = coctailName{
+            viewModel.searchCoctails(saveCoctailName)
+        }
     }
 }
 
@@ -61,6 +74,3 @@ extension UIImageView {
         }
     }
 }
-
-    
-        

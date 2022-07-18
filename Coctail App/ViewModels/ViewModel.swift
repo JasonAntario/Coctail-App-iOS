@@ -41,9 +41,7 @@ class ViewModel {
 extension ViewModel: ApiSessionDelegate {
     func didCoctailsListRecieved(coctailsList: CoctailsListDao) {
         if let safeDrinks = coctailsList.drinks {
-            DispatchQueue.main.async {
-                self.coctailsListBind.value = safeDrinks
-            }
+            self.coctailsListBind.value = safeDrinks
         } else {
             print("No drinks founded")
             self.coctailsListBind.value = [CoctailsListDao.DrinkDao]()

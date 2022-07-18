@@ -17,20 +17,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" id="ntc-qn-i1Y">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="bwj-7P-qgD" id="Prg-4K-d0O"/>
-                                </connections>
-                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="T21-n7-ZK2">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="738-0l-340">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="bwj-7P-qgD" id="7BL-lm-KDn"/>
+                                    </connections>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CoctailCellID" id="yGH-2d-e5g">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="88.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yGH-2d-e5g" id="jLb-R5-eJH">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -38,27 +38,90 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="delegate" destination="bwj-7P-qgD" id="88Y-TV-Lr8"/>
+                                </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seatch coctails by full name or first letter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SLC-16-prY">
+                                <rect key="frame" x="15" y="436" width="384" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LRC-sS-2eE"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="LRC-sS-2eE" firstAttribute="trailing" secondItem="SLC-16-prY" secondAttribute="trailing" constant="15" id="F6x-vC-3AA"/>
                             <constraint firstItem="T21-n7-ZK2" firstAttribute="trailing" secondItem="LRC-sS-2eE" secondAttribute="trailing" id="Kd1-pb-dSx"/>
                             <constraint firstItem="T21-n7-ZK2" firstAttribute="bottom" secondItem="LRC-sS-2eE" secondAttribute="bottom" id="Kzp-FZ-CQD"/>
-                            <constraint firstItem="T21-n7-ZK2" firstAttribute="top" secondItem="ntc-qn-i1Y" secondAttribute="bottom" id="ava-wF-h5g"/>
+                            <constraint firstItem="SLC-16-prY" firstAttribute="leading" secondItem="LRC-sS-2eE" secondAttribute="leading" constant="15" id="Rl2-lG-CSD"/>
+                            <constraint firstItem="T21-n7-ZK2" firstAttribute="top" secondItem="LRC-sS-2eE" secondAttribute="top" id="eaI-4K-aQP"/>
                             <constraint firstItem="T21-n7-ZK2" firstAttribute="leading" secondItem="LRC-sS-2eE" secondAttribute="leading" id="veS-xS-1ee"/>
+                            <constraint firstItem="SLC-16-prY" firstAttribute="centerY" secondItem="phY-eg-9yd" secondAttribute="centerY" id="wGn-HU-bTR"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Kd9-V3-VxY"/>
                     <connections>
                         <outlet property="mainTableView" destination="T21-n7-ZK2" id="LKQ-2N-eif"/>
+                        <outlet property="messageLabel" destination="SLC-16-prY" id="EAN-eo-mSd"/>
+                        <segue destination="9sw-T7-f5O" kind="show" identifier="ShowDetailsID" id="V7C-Yp-9fx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z7d-Pe-lmu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="917.39130434782612" y="-556.47321428571422"/>
+            <point key="canvasLocation" x="1693" y="-556"/>
+        </scene>
+        <!--Details View Controller-->
+        <scene sceneID="pQO-P6-nay">
+            <objects>
+                <viewController id="9sw-T7-f5O" customClass="DetailsViewController" customModule="Coctail_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YHf-9n-8nT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="K9F-Ws-QBa">
+                                <rect key="frame" x="10" y="91" width="394" height="746"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ot2-43-fa0">
+                                <rect key="frame" x="10" y="54" width="394" height="32"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="CwG-1v-yMv"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="CwG-1v-yMv" firstAttribute="trailing" secondItem="K9F-Ws-QBa" secondAttribute="trailing" constant="10" id="6t9-vm-8vp"/>
+                            <constraint firstItem="CwG-1v-yMv" firstAttribute="trailing" secondItem="ot2-43-fa0" secondAttribute="trailing" constant="10" id="7qg-2e-EWa"/>
+                            <constraint firstItem="K9F-Ws-QBa" firstAttribute="leading" secondItem="CwG-1v-yMv" secondAttribute="leading" constant="10" id="CyQ-6O-zdj"/>
+                            <constraint firstItem="ot2-43-fa0" firstAttribute="top" secondItem="CwG-1v-yMv" secondAttribute="top" constant="10" id="Lbh-0X-BBx"/>
+                            <constraint firstItem="K9F-Ws-QBa" firstAttribute="top" secondItem="ot2-43-fa0" secondAttribute="bottom" constant="5" id="tlm-Gs-qpz"/>
+                            <constraint firstItem="CwG-1v-yMv" firstAttribute="bottom" secondItem="K9F-Ws-QBa" secondAttribute="bottom" constant="5" id="u0Q-V7-E4p"/>
+                            <constraint firstItem="ot2-43-fa0" firstAttribute="leading" secondItem="CwG-1v-yMv" secondAttribute="leading" constant="10" id="zuI-Wb-Veo"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="eaa-Ny-VyX"/>
+                    <connections>
+                        <outlet property="drinkLabel" destination="ot2-43-fa0" id="YVj-7I-XMu"/>
+                        <outlet property="textView" destination="K9F-Ws-QBa" id="hUt-Rd-ak0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jlj-io-9ms" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2508.6956521739135" y="-556.47321428571422"/>
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

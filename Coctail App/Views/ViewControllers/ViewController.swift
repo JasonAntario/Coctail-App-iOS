@@ -10,6 +10,8 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var mainTableView: UITableView!
+    @IBOutlet weak var messageLabel: UILabel!
+    
     let viewModel = ViewModel()
     
     var coctailsList = [CoctailsListDao.DrinkDao]()
@@ -22,7 +24,15 @@ class ViewController: UIViewController {
         
         viewModel.coctailsListBind.bind { coctailsList in
             self.coctailsList = coctailsList
-            self.mainTableView.reloadData()
+            DispatchQueue.main.async {
+                self.mainTableView.reloadData()
+                if coctailsList.isEmpty {
+                    self.messageLabel.isHidden = false
+                    self.messageLabel.text = "No drinks founded"
+                } else {
+                    self.messageLabel.isHidden = true
+                }
+            }
         }
     }
     
@@ -30,9 +40,16 @@ class ViewController: UIViewController {
         let textFieldCell = UINib(nibName: K.ID.coctailCellNib,bundle: nil)
         mainTableView.register(textFieldCell, forCellReuseIdentifier: K.ID.coctailCellID)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == K.ID.coctailShowDetailsID {
+            let controller = segue.destination as! DetailsViewController
+            controller.item = coctailsList[(mainTableView.indexPathForSelectedRow?.row)!]
+        }
+    }
 }
 
-extension ViewController: UITableViewDataSource {
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.ID.coctailCellID, for: indexPath) as! CoctailCell
@@ -47,6 +64,12 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         coctailsList.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: K.ID.coctailShowDetailsID, sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
+        
     }
     
 }

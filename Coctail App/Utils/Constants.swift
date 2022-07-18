@@ -17,5 +17,6 @@ struct K {
     struct ID {
         static let coctailCellID = "CoctailCellID"
         static let coctailCellNib = "CoctailCell"
+        static let coctailShowDetailsID = "ShowDetailsID"
     }
 }

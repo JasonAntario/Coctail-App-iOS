@@ -10,8 +10,8 @@ import Foundation
 struct K {
     
     struct Request{
-        static let urlGetCoctailsByFirstLetter = "https://www.thecocktaildb.com/api/json/v1/1/search.php?f="
-        static let urlGetCoctailByFullName = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
+        static let urlGetCoctailsByFirstLetter = "https://www.thecocktaildb.com/api/json/v1/1/search.php"
+        static let urlGetCoctailByFullName = "https://www.thecocktaildb.com/api/json/v1/1/search.php"
     }
     
     struct ID {

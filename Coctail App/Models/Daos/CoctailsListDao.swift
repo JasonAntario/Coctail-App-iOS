@@ -10,6 +10,10 @@ import Foundation
 struct CoctailsListDao: Codable {
     let drinks: [DrinkDao]?
     
+    static var placeholder: Self {
+        return CoctailsListDao(drinks: nil)
+    }
+    
     struct DrinkDao: Codable{
         let idDrink: String
         let strDrink: String

@@ -6,45 +6,36 @@
 //
 
 import Foundation
+import Combine
 
 class ViewModel {
-    
-    private let apiSession = ApiSession()
-    
-    var coctailsListBind = Dynamic([CoctailsListDao.DrinkDao]())
+            
+    @Published var inputString: String = ""
+    @Published var outputCoctailsDao: CoctailsListDao = CoctailsListDao.placeholder
     
     init() {
-        apiSession.apiSessionDelegate = self
+        $inputString
+            .debounce(for: 0.3, scheduler: RunLoop.main)
+            .removeDuplicates()
+            .flatMap { (inputString: String) -> AnyPublisher<CoctailsListDao, Never> in
+                let trimCoctailName = inputString.trimmingLeadingAndTrailingSpaces()
+                if trimCoctailName.count > 1 {
+                    return self.getCoctailsByFullName(trimCoctailName)
+                } else {
+                    return self.getCoctailsByFirstLetter(trimCoctailName)
+                }
+            }
+            .assign(to: \.outputCoctailsDao, on: self)
+            .store(in: &self.cancellableSet)
     }
     
-    func searchCoctails(_ coctailName: String){
-        let trimCoctailName = coctailName.trimmingLeadingAndTrailingSpaces()
-        if trimCoctailName.count < 1 {
-            return
-        } else if trimCoctailName.count == 1 {
-            getCoctailsByFirstLetter(trimCoctailName)
-        } else {
-            getCoctailsByFullName(trimCoctailName)
-        }
-    }
-    
-    func getCoctailsByFirstLetter(_ letter: String){
-        apiSession.getCoctailsByFirstLetter(letter)
-    }
-    
-    func getCoctailsByFullName(_ name: String){
-        apiSession.getCoctailsByFullName(name)
-    }
-    
-}
+    private var cancellableSet: Set<AnyCancellable> = []
 
-extension ViewModel: ApiSessionDelegate {
-    func didCoctailsListRecieved(coctailsList: CoctailsListDao) {
-        if let safeDrinks = coctailsList.drinks {
-            self.coctailsListBind.value = safeDrinks
-        } else {
-            print("No drinks founded")
-            self.coctailsListBind.value = [CoctailsListDao.DrinkDao]()
-        }
+    func getCoctailsByFirstLetter(_ letter: String) -> AnyPublisher<CoctailsListDao, Never>{
+        return ApiSession.shared.getCoctailsByFirstLetter(letter)
+    }
+    
+    func getCoctailsByFullName(_ name: String) -> AnyPublisher<CoctailsListDao, Never>{
+        return ApiSession.shared.getCoctailsByFullName(name)
     }
 }

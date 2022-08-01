@@ -6,13 +6,15 @@
 //
 
 import UIKit
+import Combine
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var searchBarView: UISearchBar!
     @IBOutlet weak var mainTableView: UITableView!
     @IBOutlet weak var messageLabel: UILabel!
     
-    let viewModel = ViewModel()
+    private let viewModel = ViewModel()
     
     var coctailsList = [CoctailsListDao.DrinkDao]()
     
@@ -21,20 +23,30 @@ class ViewController: UIViewController {
         mainTableView.dataSource = self
         mainTableView.keyboardDismissMode = .onDrag
         registerTableViewCell()
-        
-        viewModel.coctailsListBind.bind { coctailsList in
-            self.coctailsList = coctailsList
-            DispatchQueue.main.async {
-                self.mainTableView.reloadData()
-                if coctailsList.isEmpty {
-                    self.messageLabel.isHidden = false
-                    self.messageLabel.text = "No drinks founded"
-                } else {
-                    self.messageLabel.isHidden = true
-                }
-            }
-        }
+        binding()
     }
+    
+    private func binding(){
+        searchBarView.searchTextField.textPublisher
+            .assign(to: \.inputString, on: viewModel)
+            .store(in: &cancellable)
+        
+        viewModel.$outputCoctailsDao
+            .sink { [weak self] result in
+                self?.coctailsList = result.drinks ?? []
+                self?.mainTableView.reloadData()
+                if let list = self?.coctailsList {
+                    if list.isEmpty {
+                        self?.messageLabel.isHidden = false
+                        self?.messageLabel.text = "No drinks founded"
+                    } else {
+                        self?.messageLabel.isHidden = true
+                    }
+                }
+            }.store(in: &cancellable)
+    }
+    
+    private var cancellable = Set<AnyCancellable>()
     
     private func registerTableViewCell(){
         let textFieldCell = UINib(nibName: K.ID.coctailCellNib,bundle: nil)
@@ -74,13 +86,13 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
-extension ViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.delegate = self
-        let coctailName = searchBar.text
-        if let saveCoctailName = coctailName{
-            viewModel.searchCoctails(saveCoctailName)
-        }
+extension UISearchTextField {
+    var textPublisher: AnyPublisher<String, Never>{
+        NotificationCenter.default
+            .publisher(for: UISearchTextField.textDidChangeNotification, object: self)
+            .compactMap { $0.object as? UISearchTextField }
+            .map{ $0.text ?? ""}
+            .eraseToAnyPublisher()
     }
 }
 

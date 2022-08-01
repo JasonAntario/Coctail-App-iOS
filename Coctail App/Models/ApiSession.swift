@@ -6,71 +6,41 @@
 //
 
 import Foundation
-
-protocol ApiSessionDelegate{
-    func didCoctailsListRecieved(coctailsList: CoctailsListDao)
-}
+import Combine
 
 class ApiSession {
     
-    var apiSessionDelegate: ApiSessionDelegate?
-    
-    func getCoctailsByFirstLetter(_ letter: String){
-        let url = URL(string: K.Request.urlGetCoctailsByFirstLetter+letter)
-        if let saveUrl = url {
-            let session = URLSession(configuration: .default)
-            let request = URLRequest(url: saveUrl)
-            let task = session.dataTask(with: request) { data, response, error in
-                if error != nil {
-                    print("Error in getCoctailsByFirstLetter request: \(error!)")
-                    return
-                }
-                if let saveData = data {
-                    let coctailsList = self.parseJsonToCoctailsList(saveData)
-                    if let savedList = coctailsList {
-                        self.apiSessionDelegate?.didCoctailsListRecieved(coctailsList: savedList)
-                    }
-                }
+    static let shared = ApiSession()
+        
+    func getCoctailsByFirstLetter(_ letter: String) -> AnyPublisher<CoctailsListDao, Never>{
+        guard let baseUrl = URL(string: K.Request.urlGetCoctailsByFirstLetter) else { return Just(CoctailsListDao.placeholder).eraseToAnyPublisher() }
+        var urlComponents = URLComponents(url: baseUrl, resolvingAgainstBaseURL: true)
+        urlComponents?.queryItems = [URLQueryItem(name: "f", value: letter)]
+        guard let saveUrl = urlComponents?.url else { return Just(CoctailsListDao.placeholder).eraseToAnyPublisher() }
+        return URLSession.shared.dataTaskPublisher(for: saveUrl)
+            .map { $0.data }
+            .decode(type: CoctailsListDao.self, decoder: JSONDecoder())
+            .catch { error in
+                Just(CoctailsListDao.placeholder)
             }
-            task.resume()
-        }
+            .receive(on: RunLoop.main)
+            .eraseToAnyPublisher()
     }
     
-    func getCoctailsByFullName(_ name: String){
+    func getCoctailsByFullName(_ name: String) -> AnyPublisher<CoctailsListDao, Never>{
         let trimmingName = name.trimmingLeadingAndTrailingSpaces()
-        let encodedName = trimmingName.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-        if encodedName == nil {
-            return
-        }
-        let url = URL(string: K.Request.urlGetCoctailByFullName+encodedName!)
-        if let saveUrl = url {
-            let session = URLSession(configuration: .default)
-            let request = URLRequest(url: saveUrl)
-            let task = session.dataTask(with: request) { data, response, error in
-                if error != nil {
-                    print("Error in getCoctailsByFullName request: \(error!)")
-                    return
-                }
-                if let saveData = data {
-                    let coctailsList = self.parseJsonToCoctailsList(saveData)
-                    if let savedList = coctailsList {
-                        self.apiSessionDelegate?.didCoctailsListRecieved(coctailsList: savedList)
-                    }
-                }
-            }
-            task.resume()
-        }
-    }
-    
-    private func parseJsonToCoctailsList(_ data: Data) -> CoctailsListDao? {
-        let decoder = JSONDecoder()
-        do{
-            let coctailsList = try decoder.decode(CoctailsListDao.self, from: data)
-            return coctailsList
-        } catch {
-            print("Error in JSON decoding: \(error)")
-            return nil
-        }
+        guard let encodedName = trimmingName.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return Just(CoctailsListDao.placeholder).eraseToAnyPublisher() }
+        guard let baseUrl = URL(string: K.Request.urlGetCoctailByFullName) else { return Just(CoctailsListDao.placeholder).eraseToAnyPublisher()}
+        var urlComponents = URLComponents(url: baseUrl, resolvingAgainstBaseURL: true)
+        urlComponents?.queryItems = [URLQueryItem(name: "s", value: encodedName)]
+        
+        guard let saveUrl = urlComponents?.url else { return Just(CoctailsListDao.placeholder).eraseToAnyPublisher() }
+        return URLSession.shared.dataTaskPublisher(for: saveUrl)
+            .map { $0.data }
+            .decode(type: CoctailsListDao.self, decoder: JSONDecoder())
+            .catch { error in Just(CoctailsListDao.placeholder) }
+            .receive(on: RunLoop.main)
+            .eraseToAnyPublisher()
     }
 }
 

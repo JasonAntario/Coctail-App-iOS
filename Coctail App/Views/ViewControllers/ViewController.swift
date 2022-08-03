@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("viewDidLoad")
         mainTableView.dataSource = self
         mainTableView.keyboardDismissMode = .onDrag
         registerTableViewCell()

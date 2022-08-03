@@ -57,72 +57,72 @@ struct CoctailsListDao: Codable {
                 var list: [Ingredient] = []
                 list.append(Ingredient(name: strIngredient1, measure: strMeasure1))
                 if strIngredient2 != nil {
-                    list.append(Ingredient(name: strIngredient2!, measure: strMeasure2!))
+                    list.append(Ingredient(name: strIngredient2!, measure: strMeasure2 ?? ""))
                 } else {
                     return list
                 }
                 if strIngredient3 != nil {
-                    list.append(Ingredient(name: strIngredient3!, measure: strMeasure3!))
+                    list.append(Ingredient(name: strIngredient3!, measure: strMeasure3 ?? ""))
                 } else {
                     return list
                 }
                 if strIngredient4 != nil {
-                    list.append(Ingredient(name: strIngredient4!, measure: strMeasure4!))
+                    list.append(Ingredient(name: strIngredient4!, measure: strMeasure4 ?? ""))
                 } else {
                     return list
                 }
                 if strIngredient5 != nil {
-                    list.append(Ingredient(name: strIngredient5!, measure: strMeasure5!))
+                    list.append(Ingredient(name: strIngredient5!, measure: strMeasure5 ?? ""))
                 } else {
                     return list
                 }
                 if strIngredient6 != nil {
-                    list.append(Ingredient(name: strIngredient6!, measure: strMeasure6!))
+                    list.append(Ingredient(name: strIngredient6!, measure: strMeasure6 ?? ""))
                 } else {
                     return list
                 }
                 if strIngredient7 != nil {
-                    list.append(Ingredient(name: strIngredient7!, measure: strMeasure7!))
+                    list.append(Ingredient(name: strIngredient7!, measure: strMeasure7 ?? ""))
                 } else {
                     return list
                 }
                 if strIngredient8 != nil {
-                    list.append(Ingredient(name: strIngredient8!, measure: strMeasure8!))
+                    list.append(Ingredient(name: strIngredient8!, measure: strMeasure8 ?? ""))
                 } else {
                     return list
                 }
                 if strIngredient9 != nil {
-                    list.append(Ingredient(name: strIngredient9!, measure: strMeasure9!))
+                    list.append(Ingredient(name: strIngredient9!, measure: strMeasure9 ?? ""))
                 } else {
                     return list
                 }
                 if strIngredient10 != nil {
-                    list.append(Ingredient(name: strIngredient10!, measure: strMeasure10!))
+                    list.append(Ingredient(name: strIngredient10!, measure: strMeasure10 ?? ""))
                 } else {
                     return list
                 }
                 if strIngredient11 != nil {
-                    list.append(Ingredient(name: strIngredient11!, measure: strMeasure11!))
+                    list.append(Ingredient(name: strIngredient11!, measure: strMeasure11 ?? ""))
                 } else {
                     return list
                 }
                 if strIngredient12 != nil {
-                    list.append(Ingredient(name: strIngredient12!, measure: strMeasure12!))
+                    list.append(Ingredient(name: strIngredient12!, measure: strMeasure12 ?? ""))
                 } else {
                     return list
                 }
                 if strIngredient13 != nil {
-                    list.append(Ingredient(name: strIngredient13!, measure: strMeasure13!))
+                    list.append(Ingredient(name: strIngredient13!, measure: strMeasure13 ?? ""))
                 } else {
                     return list
                 }
                 if strIngredient14 != nil {
-                    list.append(Ingredient(name: strIngredient14!, measure: strMeasure14!))
+                    list.append(Ingredient(name: strIngredient14!, measure: strMeasure14 ?? ""))
                 } else {
                     return list
                 }
                 if strIngredient15 != nil {
-                    list.append(Ingredient(name: strIngredient15!, measure: strMeasure15!))
+                    list.append(Ingredient(name: strIngredient15!, measure: strMeasure15 ?? ""))
                 } else {
                     return list
                 }
